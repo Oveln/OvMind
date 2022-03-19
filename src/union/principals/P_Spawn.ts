@@ -1,31 +1,13 @@
-import { Principal } from "principal/Principal";
 import { TransferTask } from "task/tasks/transferTask";
+import { Principal } from "union/Principal";
 
 export class P_Spawn extends Principal {
     get target(): StructureSpawn {
         return this.object as StructureSpawn
     }
-    vacancy() {
-        let ret = 0;
-        for (let i=-1;i<2;i++)
-        for (let j=-1;j<2;j++) {
-            if (i==0 && j==0) continue;
-            let npos = this.target.room.getPositionAt(this.target.pos.x+i,this.target.pos.y+j);
-            if (!npos) continue;
-            let lookTarget = npos.look();
-            let f = true;
-            _.forEach(lookTarget,(target)=>{
-                f = f && (target.type == 'creep' ||
-                         target.terrain == 'wall' ||
-                         (target.type == 'structure' && !(target.structure instanceof StructureContainer)))
-            })
-            if (!f) ret++;
-        }
-        return ret;
-    }
     publishTask(): void {
-        let vac = this.vacancy();
-        if (this.target.store.energy < 300 && this.tasked.length < vac)
+        let vac = this.vacancy(1);
+        if (this.target.store.energy < 300 && this.tasked.length < 3)
             this.AddTask({
                 id: this.NewId(),
                 name: TransferTask.Name,

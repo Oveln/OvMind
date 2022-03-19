@@ -2,8 +2,9 @@ import { Oveep } from "oveep/Oveep";
 import { OvMind } from "ovmind/OvMind";
 import { HarvestTask } from "task/tasks/harvestTask";
 import { TransferTask } from "task/tasks/transferTask";
+import { UpgradeTask } from "task/tasks/upgradeTask";
 
-const MinerTaskPriority = [HarvestTask.Name, TransferTask.Name];
+const MinerTaskPriority = [HarvestTask.Name, TransferTask.Name, UpgradeTask.Name];
 const MinerBody = [WORK,CARRY,MOVE];
 export class Miner extends Oveep {
     static Name = 'miner';

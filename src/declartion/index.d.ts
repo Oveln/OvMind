@@ -7,6 +7,12 @@ interface Memory {
     tasks: {[kind: string]:ProtoTask[]}
     taskIds: {[id: string]: boolean};
     tasked: {[id: Id<any>]: string[]};
+    requested: {[role: string]: number};
+}
+
+interface OveepConfig {
+    body: BodyPartConstant[];
+    amount: number;
 }
 
 interface ProtoTask {

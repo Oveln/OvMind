@@ -1,35 +1,35 @@
 import { Oveep } from "oveep/Oveep";
-import { Oveeps } from "oveep/Oveeps";
-import { Union } from "principal/Union";
+import { OveepConfigsInit } from "oveep_config";
 import { Queen } from "queen/Queen";
+import { Union } from "union/Union";
 
 export class OvMind {
     private static Instance: OvMind = new OvMind();
     public static getInstance() {return OvMind.Instance;}
 
-    people = new Oveeps();
     union = new Union();
     queen = new Queen();
     inited = false;
 
     init() {
-        Memory.tasked = {};
-        Memory.taskIds = {};
-        Memory.tasks = {};
+        OveepConfigsInit();
+
+        if (!Memory.requested) Memory.requested = {};
+        if (!Memory.tasked) Memory.tasked = {};
+        if (!Memory.taskIds) Memory.taskIds = {};
+        if (!Memory.tasks) Memory.tasks = {};
         this.queen.init();
-        this.people.init();
         this.union.init();
 
         this.inited = true;
         console.log('Init Success');
     }
     getOveep(name: string):Oveep {
-        return this.people.get(name);
+        return this.queen.getOveep(name);
     }
 
     run() {
         this.union.run();
-        this.people.run();
         this.queen.run();
     }
 }

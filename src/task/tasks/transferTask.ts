@@ -27,8 +27,14 @@ export class TransferTask extends Task {
         return this.oveep.creep.transfer(this.target,this.data.resourceType,this.data.amount);
     }
     isTargetValid(): boolean {
-        if (isStoreStructure(this.target)) return this.target.store.getFreeCapacity(this.data.resourceType) > this.data.amount;
-        if (this.target instanceof Creep) return this.target.store.getFreeCapacity(this.data.resourceType) > this.data.amount;
+        if (isStoreStructure(this.target)) {
+            if (this.target.store.getFreeCapacity(this.data.resourceType) == 0) return false;
+            return this.target.store.getFreeCapacity(this.data.resourceType) > this.data.amount;
+        }
+        if (this.target instanceof Creep) {
+            if (this.target.store.getFreeCapacity(this.data.resourceType) == 0) return false;
+            return this.target.store.getFreeCapacity(this.data.resourceType) > this.data.amount;
+        }
         return false;
     }
     isTaskValid(): boolean {

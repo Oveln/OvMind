@@ -2,6 +2,7 @@ import { Task } from "./Task";
 import { HarvestTask, HarvestTaskTarget } from "./tasks/harvestTask";
 import { InvalidTask } from "./tasks/InvalidTask";
 import { TransferTask, TransferTaskTarget } from "./tasks/transferTask";
+import { UpgradeTask, UpgradeTaskTarget } from "./tasks/upgradeTask";
 
 export function InitTask(protoTask: ProtoTask | null):Task | null {
     if (!protoTask) return null;
@@ -15,6 +16,10 @@ export function InitTask(protoTask: ProtoTask | null):Task | null {
         }
         case TransferTask.Name: {
             task = new TransferTask(target as TransferTaskTarget, protoTask);
+            break;
+        }
+        case UpgradeTask.Name: {
+            task = new UpgradeTask(target as UpgradeTaskTarget, protoTask);
             break;
         }
         default: {

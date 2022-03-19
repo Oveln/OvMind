@@ -76,14 +76,14 @@ export abstract class Task {
             return;
         }
         if (!this.isInrange()) {
-            if (this.oveep.moveTo(this._target.pos) != OK) console.warn('在',this.oveep.creep.pos,'找不到路径');
+            if (this.oveep.moveTo(this._target.pos) != OK) this.oveep.creep.say('我他妈找不到路了');
         } else if (this.work() == OK && this.setting.oneshot) {
             this.finish();
         }
     }
 
     finish() {
-        console.log('finishing');
+        this.oveep.creep.say('我滴任务完成啦');
         if (!this._next) OvMind.getInstance().union.DelTask(this.id);
         this.oveep.task = this.next;
     }
